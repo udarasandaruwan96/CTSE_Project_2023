@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../../models/comment.dart';
 
 class RamonaHome extends StatefulWidget {
@@ -32,6 +31,7 @@ class _RamonaHomeState extends State<RamonaHome> {
       descriptionController.text = documentSnapshot['description'].toString();
     }
     await showModalBottomSheet(
+       
         isScrollControlled: true,
         context: context,
         builder: (BuildContext ctx) {
@@ -42,11 +42,17 @@ class _RamonaHomeState extends State<RamonaHome> {
                 right: 20,
                 // prevent the soft keyboard from covering text fields
                 bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
-            child: Column(
+              child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               
               children: [
+                Image.asset(
+                'assets/images/review.gif', // Replace with your own image asset
+                height: 220, // Set the height of the image
+                width: double.infinity, // Set the width of the image to be the full width of the modal
+                fit: BoxFit.cover, // Set the image to cover the entire space
+                 ),
                 Container(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: const Text(
@@ -88,6 +94,13 @@ class _RamonaHomeState extends State<RamonaHome> {
                             .doc(documentSnapshot!.id)
                             .update({"name": name, "description": description});
                       }
+
+                      // Show a success toast
+                        Fluttertoast.showToast(
+                            msg: 'Thank you for your feedback',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            textColor: Colors.white);
 
                       // Clear the text fields
                       nameController.text = '';
@@ -140,7 +153,8 @@ class _RamonaHomeState extends State<RamonaHome> {
                   margin: const EdgeInsets.all(10),
                   child: ListTile(
                      leading: const CircleAvatar(
-                      backgroundImage: NetworkImage('assets/images/users.png'),
+                      backgroundImage: NetworkImage('assets/images/user.gif'),
+                      radius: 25,
                       ),
                     title: Text(documentSnapshot['name']),
                     subtitle: Text(documentSnapshot['description'].toString()),
@@ -151,12 +165,12 @@ class _RamonaHomeState extends State<RamonaHome> {
                           
                           // Press this button to edit a single product
                           IconButton(
-                              icon: const Icon(Icons.edit),
+                              icon: const Icon(Icons.edit, color: Colors.blue),
                               onPressed: () =>
                                   _CreateOrUpdate(documentSnapshot)),
                           // This icon button is used to delete a single product
                           IconButton(
-                              icon: const Icon(Icons.delete),
+                              icon: const Icon(Icons.delete, color: Colors.red),
                               onPressed: () =>
                                   _deleteProduct(documentSnapshot.id)),
                         ],
@@ -181,4 +195,4 @@ class _RamonaHomeState extends State<RamonaHome> {
     );
   }
 }
-        
+
