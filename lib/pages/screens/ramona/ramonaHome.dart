@@ -30,6 +30,7 @@ class _RamonaHomeState extends State<RamonaHome> {
       nameController.text = documentSnapshot['name'];
       descriptionController.text = documentSnapshot['description'].toString();
     }
+    //reference - https://www.kindacode.com/article/flutter-firestore-database/
     await showModalBottomSheet(
        
         isScrollControlled: true,
@@ -48,7 +49,7 @@ class _RamonaHomeState extends State<RamonaHome> {
               
               children: [
                 Image.asset(
-                'assets/images/review.gif', // Replace with your own image asset
+                'assets/images/review.gif',
                 height: 220, // Set the height of the image
                 width: double.infinity, // Set the width of the image to be the full width of the modal
                 fit: BoxFit.cover, // Set the image to cover the entire space
