@@ -12,218 +12,173 @@ class RamonaHome extends StatefulWidget {
 }
 
 class _RamonaHomeState extends State<RamonaHome> {
-
-final db = FirebaseFirestore.instance;
-
-TextEditingController nameController = TextEditingController();
-TextEditingController descriptionController = TextEditingController();
-
+  final db = FirebaseFirestore.instance;
+  final CollectionReference commentList =
+  FirebaseFirestore.instance.collection('commentList');
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
 //input fields will be handled
   bool viewInputfields = false;
 
   // int _counter = 0;
   int Listlength = 0;
-  
 
+  Future<void> _CreateOrUpdate([DocumentSnapshot? documentSnapshot]) async {
+    String action = 'create';
+    if (documentSnapshot != null) {
+      action = 'update';
+      nameController.text = documentSnapshot['name'];
+      descriptionController.text = documentSnapshot['description'].toString();
+    }
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+                // prevent the soft keyboard from covering text fields
+                bottom: MediaQuery.of(ctx).viewInsets.bottom + 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: const Text(
+                    'Your Comments Can Help Us Improve',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(labelText: 'Your Name'),
+                ),
+                TextField(
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  controller: descriptionController,
+                  decoration: const InputDecoration(
+                    labelText: 'Comments',
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  child: Text(action == 'create' ? 'Add' : 'Update'),
+                  onPressed: () async {
+                    final String? name = nameController.text;
+                    final String? description = descriptionController.text;
+                    if (name != null && description != null) {
+                      if (action == 'create') {
+                        // Persist a new product to Firestore
+                        await commentList.add({"name": name, "description": description});
+                      }
 
-   // create a function to add new recipe
-  void _addnewcomment(String name , String description) async {
+                      if (action == 'update') {
+                        // Update the product
+                        await commentList
+                            .doc(documentSnapshot!.id)
+                            .update({"name": name, "description": description});
+                      }
 
-    final docRef = db.collection('commentList').doc();
-   
-    docRef.set(CommentModel(Listlength,name, description).toJson()).then(
-      (value) => Fluttertoast.showToast(msg:"Comment Added"),
-      onError: (e) => print("Error Adding Comment: $e"));
+                      // Clear the text fields
+                      nameController.text = '';
+                      descriptionController.text = '';
 
-    //commentList.add(CommentModel(commentListlength,task, name, 3));
-    Listlength++;
-    setState(() {});
+                      // Hide the bottom sheet
+                      Navigator.of(context).pop();
+                    }
+                  },
+                )
+              ],
+            ),
+          );
+        });
+}
+
+// Deleteing a product by id
+  Future<void> _deleteProduct(String productId) async {
+    await commentList.doc(productId).delete();
+
+    // Show a snackbar
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('You have successfully deleted')));
   }
 
-
-// a function to remove recipe
-  void _removecomment(dynamic docID,CommentModel comment) {
-        print("${docID} ${comment.id}");
-        db.collection('commentList').doc(docID.toString()).delete().then(
-            (value) => Fluttertoast.showToast(msg:"Comment Deleted"),
-            onError: (e) => print("Error Deleting Comment: $e"));
-    setState(() {
-    Listlength--;
-    });
-  }
-
-  //  void _changeComment(dynamic docID,CommentModel comment) {
-  //       comment.description = "Updated";
-  //       db.collection('commentList').doc(docID.toString()).set(comment.toJson()).then(
-  //           (value) => Fluttertoast.showToast(msg:"Comment Updated"),
-  //           onError: (e) => print("Error Updating Comment: $e"));
-  //   setState(() {
-  //   });
-  // }
 
   Future getCommentLists() async {
-        return db.collection("commentList").get();
-    }
-
-
-
+    return db.collection("commentList").get();
+  }
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-    
+    return Scaffold(
+  
 
- body: Center(
-        child: Stack(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            //show and hide input fields according to the variable value
-            if(viewInputfields)
-            Container(
-              padding: const EdgeInsets.all(20),
-              height: 400,
-              width: MediaQuery.of(context).size.width * 0.9 ,              
-              decoration: BoxDecoration(                
-                border: Border.all(color: Colors.blueGrey),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                children: [
-                  const Center(
-                    child: Text(
-                      'Add New Comment',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,                      
-                      ),
-                    ),                  
-                  ),
-                  TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter Your Name',
-                    ),
-                  ),
-                  const SizedBox(height: 20,),
-                  TextField(
-                    controller: descriptionController,
-                    decoration: const InputDecoration(
-                      hintText: 'Give Us Your Feedback',
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 20,),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          _addnewcomment(nameController.text, descriptionController.text);
-                          nameController.clear();
-                          descriptionController.clear();
-
-                          setState(() {
-                            viewInputfields = false;
-                          });
-                        }, 
-                        child: const Text('Add Comment')                  
-                     ),
-                  )
-                ],
-              ),
-            ),
-            if(!viewInputfields) 
-           FutureBuilder(
-              future: getCommentLists(),
-              builder: ((context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                if (snapshot.data == null) {
-                  return const SizedBox();
-                }
-
-                if (snapshot.data!.docs.isEmpty) {
-                  print("List ${snapshot.data.docs}");
-                  return const SizedBox(
-                    child: Center(
-                        child:
-                            Text("No Comments")),
-                  );
-                }
-
-                if (snapshot.hasData) {
-                  List<Map<dynamic,dynamic>> commentList = [];
-
-                  for (var doc in snapshot.data!.docs) {
-                    final comment = CommentModel.fromJson(doc.data() as Map<String, dynamic>);
-                    Map<dynamic,dynamic> map = {
-                      "docId":doc.id,
-                      "comment":comment
-                      };
-                    commentList.add(map);
-                  }
-
-                  return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemCount: commentList.length,
-                    itemBuilder: (context, index) {
-                      return  Card(
-                          child: ListTile(
-                            title: Center(child: Text("Username :" +commentList[index]["comment"].name!)),
-                            subtitle: Column(children: [
-                              Text("description :"+commentList[index]["comment"].description!),
-                           
-                            ]),                      
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                // IconButton(
-                                //   tooltip : "Press to mark complete",
-                                //   onPressed: () {
-                                //     _changeComment(commentList[index]["docId"],commentList[index]["comment"]);
-                                //   }, 
-                                //   icon: const Icon(
-                                //     Icons.update_rounded,
-                                //     color: Colors.cyanAccent,
-                                //   ),
-                                // ),
-                                IconButton(
-                                  tooltip : "Press to delete",
-                                  onPressed: () {
-                                    _removecomment(commentList[index]["docId"],commentList[index]["comment"]);
-                                  }, 
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    color: Colors.red,)
-                                ),
-                              ],
-                              )
-                          ),
-                        );
-                    },
-                  );
-                }
-
-                return const SizedBox();
-              }),
-            )
-          ],
-        ),
+ appBar: AppBar(
+        title: const Text('Comments and Feedback'),
       ),
+      // Using StreamBuilder to display all products from Firestore in real-time
+      body: StreamBuilder(
+        stream: commentList.snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+          if (streamSnapshot.hasData) {
+            return ListView.builder(
+              itemCount: streamSnapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                final DocumentSnapshot documentSnapshot =
+                    streamSnapshot.data!.docs[index];
+                return Card(
+                  margin: const EdgeInsets.all(10),
+                  child: ListTile(
+                     leading: const CircleAvatar(
+                      backgroundImage: NetworkImage('assets/images/users.png'),
+                      ),
+                    title: Text(documentSnapshot['name']),
+                    subtitle: Text(documentSnapshot['description'].toString()),
+                    trailing: SizedBox(
+                      width: 80,
+                      child: Row(
+                        children: [
+                          
+                          // Press this button to edit a single product
+                          IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () =>
+                                  _CreateOrUpdate(documentSnapshot)),
+                          // This icon button is used to delete a single product
+                          IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () =>
+                                  _deleteProduct(documentSnapshot.id)),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }
 
-       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          setState(() {
-             viewInputfields = true;
-          });
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
-        tooltip: 'Add',
+      ),
+      // Add new product
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _CreateOrUpdate(),
         child: const Icon(Icons.add),
-      )
+      ),
     );
   }
 }
+        
