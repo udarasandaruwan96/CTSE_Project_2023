@@ -31,9 +31,9 @@ class _DashboardState extends State<Dashboard> {
         // ignore: sort_child_properties_last
         child: GridView(children: [
           InkWell(
-             onTap: (){
-               Navigator.push(context, MaterialPageRoute(builder: (context)=>UdaraHome()));
-             },
+            //  onTap: (){
+            //    Navigator.push(context, MaterialPageRoute(builder: (context)=>UdaraHome()));
+            //  },
             child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.red,),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

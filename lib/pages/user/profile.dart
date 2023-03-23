@@ -1,5 +1,10 @@
+import 'package:ctse_project/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
+import '../screens/udara/udaraHome.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);
@@ -31,6 +36,50 @@ class _ProfileState extends State<Profile> {
     }
   }
 
+//delete..................
+Future<void> deleteUserProfile(BuildContext context) async {
+  final user = FirebaseAuth.instance.currentUser;
+
+    try {
+    await user?.delete();
+    print('User account deleted successfully.');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.orangeAccent,
+        content: Text(
+          "User account deleted successfully.",
+          style: TextStyle(fontSize: 18.0, color: Colors.black),
+        ),
+      ),
+    );
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => Login()),
+      (route) => false,
+    );
+  } catch (e) {
+    print('Failed to delete user account: $e');
+     ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.orangeAccent,
+        content: Text(
+          "Failed to delete user account.",
+          style: TextStyle(fontSize: 18.0, color: Colors.black),
+        ),
+      ),
+    );
+  }
+
+  // Delete user profile data in Cloud Firestore
+  // final userDocRef = FirebaseFirestore.instance.collection('users').doc(user!.uid);
+  // await userDocRef.delete();
+}
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,6 +110,57 @@ class _ProfileState extends State<Profile> {
             'Created: $creationTime',
             style: TextStyle(fontSize: 18.0),
           ),
+
+        //delete ...........
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0), // adjust the value to add more or less space
+              child: ElevatedButton(
+            onPressed: () async {
+              //await deleteUserProfile(context);
+              Widget cancelButton = TextButton(
+                 child: Text("Cancel"),
+                   onPressed: () {
+                   Navigator.pop(context);
+                 },
+            );
+            Widget continueButton = TextButton(
+               child: Text("Ok"),
+                  onPressed: () => deleteUserProfile(context),
+            );
+
+           // Create the AlertDialog
+           AlertDialog alert = AlertDialog(
+             title: Text("Delete Profile"),
+             content: Text("Are you sure you want to delete?"),
+             actions: [
+             cancelButton,
+             continueButton,
+             ],
+           );
+
+            // Show the AlertDialog
+           showDialog(
+              context: context,
+              builder: (BuildContext context) {
+              return alert;
+              },
+           );
+           },
+          child: Text('Delete Profile'),
+         ),
+         ),
+
+           Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0), // adjust the value to add more or less space
+              child: ElevatedButton(
+               onPressed: () async {
+                       Navigator.push(context, MaterialPageRoute(builder: (context) => UdaraHome()));
+                   },
+                child: Text('User Details'),
+              ),
+           ),
+           
+
         ],
       ),
     );
