@@ -96,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.settings,
+                        Icons.food_bank,
                         size: 50,
                         color: Colors.white,
                       ),
