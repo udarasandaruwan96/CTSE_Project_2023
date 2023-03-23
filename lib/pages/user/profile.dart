@@ -83,9 +83,16 @@ Future<void> deleteUserProfile(BuildContext context) async {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Column(
         children: [
+
+          const SizedBox(height: 30),
+          Image.network('assets/images/homeImage.gif', height: 250),
+      
+
+
           Text(
             'User ID: $uid',
             style: TextStyle(fontSize: 18.0),
@@ -160,6 +167,7 @@ Future<void> deleteUserProfile(BuildContext context) async {
               ),
            ),
            
+          
 
         ],
       ),
