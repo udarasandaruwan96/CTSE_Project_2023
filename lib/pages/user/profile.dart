@@ -89,10 +89,10 @@ Future<void> deleteUserProfile(BuildContext context) async {
         children: [
 
           const SizedBox(height: 30),
-          Image.network('assets/images/homeImage.gif', height: 250),
+          Image.network('assets/images/user.gif', height: 250),
       
 
-
+          const SizedBox(height: 30),
           Text(
             'User ID: $uid',
             style: TextStyle(fontSize: 18.0),
@@ -108,11 +108,15 @@ Future<void> deleteUserProfile(BuildContext context) async {
                       'verified',
                       style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
                     )
-                  : TextButton(
+                  :
+                  const SizedBox(height: 30), 
+                  TextButton(
                       onPressed: () => {verifyEmail()},
                       child: Text('Verify Email'))
             ],
           ),
+
+          const SizedBox(height: 30),
           Text(
             'Created: $creationTime',
             style: TextStyle(fontSize: 18.0),
@@ -156,7 +160,8 @@ Future<void> deleteUserProfile(BuildContext context) async {
           child: Text('Delete Profile'),
          ),
          ),
-
+           
+           const SizedBox(height: 30),
            Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0), // adjust the value to add more or less space
               child: ElevatedButton(
