@@ -172,8 +172,41 @@ class _RamonaHomeState extends State<RamonaHome> {
                           // This icon button is used to delete a single product
                           IconButton(
                               icon: const Icon(Icons.delete, color: Colors.red),
-                              onPressed: () =>
-                                  _deleteProduct(documentSnapshot.id)),
+                              onPressed: () {
+                                    // Delete Confirmation Message
+                            // set up the buttons
+                            Widget cancelButton = TextButton(
+                              child: const Text("Cancel"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            );
+                            Widget continueButton = TextButton(
+                              child: Text("Confirm"),
+                              onPressed: (){ _deleteProduct(documentSnapshot.id);
+                               Navigator.pop(context);
+                               },
+                            );
+
+                            // set up the AlertDialog
+                            AlertDialog alert = AlertDialog(
+                              title: Text("Delete Comment"),
+                              content: Text("Please confirm delete"),
+                              actions: [
+                                cancelButton,
+                                continueButton,
+                              ],
+                            );
+                            // show the dialog
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return alert;
+                              },
+                            );
+                          },
+                        ),
+                                  
                         ],
                       ),
                     ),
