@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 import '../screens/anodya/recipe.dart';
-import '../screens/disni/disniHome.dart';
+import '../screens/disni/addNote.dart';
 import '../screens/ramona/comment.dart';
 import '../screens/ramona/ramonaHome.dart';
 import '../screens/udara/udaraHome.dart';
@@ -38,7 +37,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.red,
+                    color: Color.fromARGB(255, 196, 106, 100),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -59,23 +58,23 @@ class _DashboardState extends State<Dashboard> {
               InkWell(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DisniHome()));
+                      MaterialPageRoute(builder: (context) => addNote()));
                 },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.yellow,
+                    color: Color.fromARGB(255, 112, 153, 187),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.search,
+                        Icons.edit_note,
                         size: 50,
                         color: Colors.white,
                       ),
                       Text(
-                        "Search",
+                        "Add Note",
                         style: TextStyle(color: Colors.white, fontSize: 30),
                       )
                     ],
@@ -90,7 +89,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.green,
+                    color: Color.fromARGB(255, 100, 179, 146),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +115,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey,
+                    color: Color.fromARGB(255, 159, 105, 167),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
