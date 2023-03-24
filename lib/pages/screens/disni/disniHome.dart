@@ -259,7 +259,7 @@ class _DisniHomeState extends State<DisniHome> {
                       ),
                       child: Icon(
                         Icons.edit,
-                        color: Color(0xFFFFA000),
+                        color: Color.fromARGB(255, 33, 115, 209),
                       ),
                       onPressed: () => _update(documentSnapshot),
                     ),
@@ -270,7 +270,7 @@ class _DisniHomeState extends State<DisniHome> {
                       ),
                       child: Icon(
                         Icons.delete,
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 224, 68, 68),
                       ),
                       onPressed: () {
                         // Delete Confirmation Message
