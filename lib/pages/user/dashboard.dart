@@ -1,7 +1,9 @@
+//import 'package:ctse_project/pages/screens/anodya/recipe.dart';
+//import 'package:ctse_project/pages/screens/disni/addNote.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/anodya/anodyaHome.dart';
-import '../screens/disni/disniHome.dart';
+//import '../screens/anodya/anodyaHome.dart';
+//import '../screens/disni/disniHome.dart';
 import '../screens/ramona/comment.dart';
 import '../screens/ramona/ramonaHome.dart';
 import '../screens/udara/udaraHome.dart';
@@ -45,28 +47,28 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
          InkWell(
-             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>DisniHome()));
-            },
+            //  onTap: (){
+            //   Navigator.push(context, MaterialPageRoute(builder: (context)=>addNote()));
+            // },
            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.yellow,),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Icon(Icons.search,size: 50,color: Colors.white,),
-              Text("Search",style: TextStyle(color: Colors.white,fontSize: 30),)
+              Icon(Icons.note,size: 50,color: Colors.white,),
+              Text("Add Note",style: TextStyle(color: Colors.white,fontSize: 30),)
             ],),
             ),
          ),
           InkWell(
-              onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>AnodyaHome()));
-            },
+            //   onTap: (){
+            //   Navigator.push(context, MaterialPageRoute(builder: (context)=>addRecipe()));
+            // },
             child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.green,),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
               Icon(Icons.settings,size: 50,color: Colors.white,),
-              Text("Settings",style: TextStyle(color: Colors.white,fontSize: 30),)
+              Text("Recipe",style: TextStyle(color: Colors.white,fontSize: 30),)
             ],),
             ),
           ),
