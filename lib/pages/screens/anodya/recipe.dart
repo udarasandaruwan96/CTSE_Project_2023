@@ -15,18 +15,33 @@ class _addRecipeState extends State<addRecipe> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipes'),
+        title: Text('My Recipes'),
       ),
-       body: Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 70),
-          Image.network('assets/images/cooking-flavours.gif', height: 360),
+          const SizedBox(height: 20),
+          const Text('Custom Recipes', style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold,)),
+          Text(
+            'Create Your Own Recipes',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.purple,
+            ),
+          ),
+          Center(
+            child: Image.network(
+              'assets/images/cooking-flavours.gif',
+              height: 330,
+              width: 400,
+            ),
+          ),
           const SizedBox(height: 30),
-          const Text('Add your Recipe here..', style: TextStyle(fontSize: 20)),
-          const Text('EXCITED!....you can create new recipe here and read them', style: TextStyle(fontSize: 18)),
-      
+          const Text('Add your own Recipes from  here..', style: TextStyle(fontSize: 20)),
+          SizedBox(height: 20),
+
           ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -34,11 +49,10 @@ class _addRecipeState extends State<addRecipe> {
                 MaterialPageRoute(builder: (context) => AnodyaHome()),
               );
             },
-            child: Text('Click Here To Add Recipe'),
+            child: Text('Click Here To Add New Recipe'),
           ),
         ],
-    ),
-
+      ),
     );
   }
 }
