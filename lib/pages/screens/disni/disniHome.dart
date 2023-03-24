@@ -60,10 +60,7 @@ class _DisniHomeState extends State<DisniHome> {
                   controller: _descriptionController,
                   decoration: const InputDecoration(labelText: 'description'),
                 ),
-                TextField(
-                  controller: _dateController,
-                  decoration: const InputDecoration(labelText: 'Date'),
-                ),
+               
                 
                 const SizedBox(
                   height: 20,
@@ -232,6 +229,7 @@ class _DisniHomeState extends State<DisniHome> {
                       borderRadius: BorderRadius.circular(9.9),
                     ),
                     child: ListTile(
+                      
                       title: Text(
                         documentSnapshot['topicname'].toString(),
                         style: TextStyle(
@@ -240,14 +238,40 @@ class _DisniHomeState extends State<DisniHome> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      subtitle: Text(
+                      
+                      subtitle: Column(
+                        children: [
+                          Text(
                         documentSnapshot['description'].toString(),
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                           fontWeight: FontWeight.w600,
+
+                          
                         ),
+                       
                       ),
+                        Align(alignment: Alignment.topRight, child:Text(
+                        documentSnapshot['date'].toString(),
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w600,
+                          
+
+                        
+                        ),
+                       
+                      ),
+                        ),
+
+                        ],
+                      ), 
+
+                      
+
+                      
                       trailing: SizedBox(
                         width: 130,
                         child: Row(
