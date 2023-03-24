@@ -1,3 +1,5 @@
+//import 'package:ctse_project/pages/screens/anodya/recipe.dart';
+//import 'package:ctse_project/pages/screens/disni/addNote.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/anodya/recipe.dart';
@@ -23,121 +25,67 @@ class _DashboardState extends State<Dashboard> {
     // ignore: prefer_const_constructors
     return Scaffold(
 // appBar: AppBar(title: Text("Grid"),),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-
-          // ignore: sort_child_properties_last
-          child: GridView(
-            children: [
-              InkWell(
-                //  onTap: (){
-                //    Navigator.push(context, MaterialPageRoute(builder: (context)=>UdaraHome()));
-                //  },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color.fromARGB(255, 196, 106, 100),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.home,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "Home",
-                        style: TextStyle(color: Colors.white, fontSize: 30),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => addNote()));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color.fromARGB(255, 112, 153, 187),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.edit_note,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "Add Note",
-                        style: TextStyle(color: Colors.white, fontSize: 30),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => addRecipe()));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color.fromARGB(255, 100, 179, 146),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.food_bank,
-                        size: 50,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "Recipes",
-                        style: TextStyle(color: Colors.white, fontSize: 30),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CommentHome()));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color.fromARGB(255, 159, 105, 167),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.book,
-                        size: 45,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "Comments",
-                        style: TextStyle(color: Colors.white, fontSize: 30),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
+      body: Container(child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        
+        // ignore: sort_child_properties_last
+        child: GridView(children: [
+          InkWell(
+            //  onTap: (){
+            //    Navigator.push(context, MaterialPageRoute(builder: (context)=>UdaraHome()));
+            //  },
+            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.red,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Icon(Icons.home,size: 50,color: Colors.white,),
+              Text("Home",style: TextStyle(color: Colors.white,fontSize: 30),)
+            ],),
+            ),
           ),
+         InkWell(
+             onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>addNote()));
+            },
+           child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.yellow,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Icon(Icons.search,size: 50,color: Colors.white,),
+              Text("Search",style: TextStyle(color: Colors.white,fontSize: 30),)
+            ],),
+            ),
+         ),
+          InkWell(
+              onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>addRecipe()));
+            },
+            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.green,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Icon(Icons.settings,size: 50,color: Colors.white,),
+              Text("Settings",style: TextStyle(color: Colors.white,fontSize: 30),)
+            ],),
+            ),
+          ),
+          InkWell(
+              onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>CommentHome()));
+            },
+            child: Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.grey,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Icon(Icons.book,size: 45,color: Colors.white,),
+              Text("Comments",style: TextStyle(color: Colors.white,fontSize: 30),)
+            ],),
+            ),
+          ),
+        ],
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,mainAxisSpacing: 10,crossAxisSpacing: 10),
         ),
+      ),
       ),
     );
   }
