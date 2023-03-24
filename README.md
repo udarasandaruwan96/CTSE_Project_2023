@@ -1,6 +1,32 @@
-# ctse_project
+# ctse_project_2023
 
-A new Flutter project.
+This is Flutter project.
+
+This is the Food Recipe Application – 
+
+----Mr.Chef----
+
+Cooking is very easy with the Mr. Chef app. Therefore, their cooking can be done faster. Also, users can prepare delicious and quality fast food using the Mr. Chef app.
+
+-------------------------
+GROUP MEMBERS
+-------------------------
+1. Jayawickrama N.D.D - IT20147778 - Self Note Function 
+
+2. Vanhoff R.L - IT20405090 - Feedback Function 
+
+3. Fernando A.P - IT20156374 - Food Recipe Function
+
+4. Wijesinghe R.M.U.S - IT20015244 - Login/Register Function and User Profile Function 
+
+-------------------------
+
+
+
+
+
+
+
 
 ## Getting Started
 
