@@ -60,10 +60,7 @@ class _DisniHomeState extends State<DisniHome> {
                   controller: _descriptionController,
                   decoration: const InputDecoration(labelText: 'description'),
                 ),
-                TextField(
-                  controller: _dateController,
-                  decoration: const InputDecoration(labelText: 'Date'),
-                ),
+               
                 
                 const SizedBox(
                   height: 20,
@@ -127,7 +124,7 @@ class _DisniHomeState extends State<DisniHome> {
               children: [
                 TextField(
                   controller: _topicnameController,
-                  decoration: const InputDecoration(labelText: 'Topicname'),
+                  decoration: const InputDecoration(labelText: 'Topic'),
                 ),
                 TextField(
                   controller: _descriptionController,
@@ -232,6 +229,7 @@ class _DisniHomeState extends State<DisniHome> {
                       borderRadius: BorderRadius.circular(9.9),
                     ),
                     child: ListTile(
+                      
                       title: Text(
                         documentSnapshot['topicname'].toString(),
                         style: TextStyle(
@@ -240,14 +238,40 @@ class _DisniHomeState extends State<DisniHome> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      subtitle: Text(
+                      
+                      subtitle: Column(
+                        children: [
+                          Text(
                         documentSnapshot['description'].toString(),
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                           fontWeight: FontWeight.w600,
+
+                          
                         ),
+                       
                       ),
+                        Align(alignment: Alignment.topRight, child:Text(
+                        documentSnapshot['date'].toString(),
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w600,
+                          
+
+                        
+                        ),
+                       
+                      ),
+                        ),
+
+                        ],
+                      ), 
+
+                      
+
+                      
                       trailing: SizedBox(
                         width: 130,
                         child: Row(
@@ -259,7 +283,7 @@ class _DisniHomeState extends State<DisniHome> {
                       ),
                       child: Icon(
                         Icons.edit,
-                        color: Color(0xFFFFA000),
+                        color: Color.fromARGB(255, 33, 115, 209),
                       ),
                       onPressed: () => _update(documentSnapshot),
                     ),
@@ -270,7 +294,7 @@ class _DisniHomeState extends State<DisniHome> {
                       ),
                       child: Icon(
                         Icons.delete,
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 224, 68, 68),
                       ),
                       onPressed: () {
                         // Delete Confirmation Message
