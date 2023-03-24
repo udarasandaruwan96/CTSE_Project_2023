@@ -51,8 +51,8 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Icon(Icons.search,size: 50,color: Colors.white,),
-              Text("Search",style: TextStyle(color: Colors.white,fontSize: 30),)
+              Icon(Icons.settings,size: 50,color: Colors.white,),
+              Text("Add Note",style: TextStyle(color: Colors.white,fontSize: 30),)
             ],),
             ),
          ),
@@ -64,8 +64,8 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Icon(Icons.settings,size: 50,color: Colors.white,),
-              Text("Settings",style: TextStyle(color: Colors.white,fontSize: 30),)
+              Icon(Icons.search,size: 50,color: Colors.white,),
+              Text("Recipe",style: TextStyle(color: Colors.white,fontSize: 30),)
             ],),
             ),
           ),
