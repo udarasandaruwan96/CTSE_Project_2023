@@ -127,7 +127,7 @@ class _DisniHomeState extends State<DisniHome> {
               children: [
                 TextField(
                   controller: _topicnameController,
-                  decoration: const InputDecoration(labelText: 'Topicname'),
+                  decoration: const InputDecoration(labelText: 'Topic'),
                 ),
                 TextField(
                   controller: _descriptionController,
