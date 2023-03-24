@@ -20,14 +20,18 @@ class _addNoteState extends State<addNote> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 70),
-          Image.network('assets/images/note.png', height: 350),
+          Image.asset('assets/images/note.png', height: 250),
           const SizedBox(height: 30),
           const Text('Add Your Note', style: TextStyle(fontSize: 20)),
-          // const SizedBox(height: 20),
-          // const Text('We strive to make cooking for you more simpler and more easy with our dishes and cutting-edge application', style: TextStyle(fontSize: 15), textAlign: TextAlign.center,
-          //     maxLines: 2,
-          //     overflow: TextOverflow.ellipsis,),
-          // SizedBox(height: 30),
+          const SizedBox(height: 20),
+          const Text(
+            'Wonna Note down Reciepie Tips? Grab You Pen Here !',
+            style: TextStyle(fontSize: 15),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -35,7 +39,20 @@ class _addNoteState extends State<addNote> {
                 MaterialPageRoute(builder: (context) => DisniHome()),
               );
             },
-            child: Text('Click Here To Add a Note'),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Click Here To Add a Note'), // <-- Text
+                SizedBox(
+                  width: 5,
+                ),
+                Icon(
+                  // <-- Icon
+                  Icons.draw,
+                  size: 20,
+                ),
+              ],
+            ),
           ),
         ],
       ),
