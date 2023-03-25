@@ -99,7 +99,7 @@ class _DashboardState extends State<Dashboard> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.settings,
+                        Icons.cookie,
                         size: 50,
                         color: Colors.white,
                       ),
