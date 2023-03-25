@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../login.dart';
 
@@ -44,7 +45,7 @@ final TextEditingController _nameController = TextEditingController();
                 bottom: MediaQuery
                     .of(ctx)
                     .viewInsets
-                    .bottom + 20),
+                    .bottom + 20),//MediaQuery....
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,6 +170,8 @@ final TextEditingController _nameController = TextEditingController();
                 const SizedBox(
                   height: 20,
                 ),
+
+
                 ElevatedButton(
                   child: const Text( 'Update'),
                   onPressed: () async {
@@ -179,6 +182,7 @@ final TextEditingController _nameController = TextEditingController();
                     final String address = _addressController.text;
                     final String date = _dateController.text;
                     final String aboutme = _aboutmeController.text;
+
                     if (pnumber != null) {
 
                       await _userprofile
@@ -192,8 +196,13 @@ final TextEditingController _nameController = TextEditingController();
                             "aboutme": aboutme,}
                       );
 
-                      _nameController.text = '';
+                      Fluttertoast.showToast(
+                          msg: 'Your Profile is Updated !',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          textColor: Colors.white);
 
+                      _nameController.text = '';
                       _pnumberController.text = '';
                       _addressController.text = '';
                       _dateController.text = '';
@@ -374,7 +383,7 @@ final TextEditingController _nameController = TextEditingController();
       ),
 
       
-      // Add new..........................................................................................
+      // Add new ..........................................................................................
         floatingActionButton: FloatingActionButton(
           onPressed: () => _create(),
           child: const Icon(Icons.add),
