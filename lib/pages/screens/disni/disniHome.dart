@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -16,7 +17,7 @@ class DisniHome extends StatefulWidget {
 }
 
 class _DisniHomeState extends State<DisniHome> {
-// methanta .....................
+  //define controllers
 
   final TextEditingController _topicnameController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
@@ -25,7 +26,7 @@ class _DisniHomeState extends State<DisniHome> {
   final CollectionReference _addnote =
       FirebaseFirestore.instance.collection('addnote');
 
-  //add data........................................................
+  //data adding ........................................................
   Future<void> _create([DocumentSnapshot? documentSnapshot]) async {
     await showModalBottomSheet(
         isScrollControlled: true,
@@ -43,8 +44,9 @@ class _DisniHomeState extends State<DisniHome> {
               children: [
                 Image.asset(
                   'assets/images/noteadd.jpg',
-                  width: 300,
-                  height: 150,
+                  alignment: Alignment.bottomCenter, //center the img
+                  width: 300, // set the width
+                  height: 250, // set the hieght
                   fit: BoxFit.fill, // Set the image to cover the entire space
                 ),
                 Container(
@@ -53,20 +55,21 @@ class _DisniHomeState extends State<DisniHome> {
                     'You Can Invent Your Own Recipie!',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
                   ),
                 ),
                 TextField(
                   controller: _dateController,
-                  decoration: const InputDecoration(labelText: 'date'),
+                  decoration: const InputDecoration(labelText: 'Date :'),
                 ),
                 TextField(
                   controller: _topicnameController,
-                  decoration: const InputDecoration(labelText: 'topicname'),
+                  decoration: const InputDecoration(labelText: 'Topic Name :'),
                 ),
                 TextField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(labelText: 'description'),
+                  decoration: const InputDecoration(labelText: 'Add Note :'),
                 ),
                 const SizedBox(
                   height: 20,
@@ -99,7 +102,7 @@ class _DisniHomeState extends State<DisniHome> {
         });
   }
 
-  //update data...........................................................
+  // data updating part...........................................................
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {
     if (documentSnapshot != null) {
       _topicnameController.text = documentSnapshot['topicname'];
@@ -123,15 +126,15 @@ class _DisniHomeState extends State<DisniHome> {
               children: [
                 TextField(
                   controller: _topicnameController,
-                  decoration: const InputDecoration(labelText: 'Topic'),
+                  decoration: const InputDecoration(labelText: 'Topic :'),
                 ),
                 TextField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(labelText: 'Description'),
+                  decoration: const InputDecoration(labelText: 'Add Note :'),
                 ),
                 TextField(
                   controller: _dateController,
-                  decoration: const InputDecoration(labelText: 'Date'),
+                  decoration: const InputDecoration(labelText: 'Date :'),
                 ),
                 const SizedBox(
                   height: 20,
@@ -150,6 +153,13 @@ class _DisniHomeState extends State<DisniHome> {
                         "date": date,
                       });
 
+                      // Show an updated success toast
+                      Fluttertoast.showToast(
+                          msg: 'Your Note Updated !',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          textColor: Colors.white);
+
                       _topicnameController.text = '';
                       _descriptionController.text = '';
                       _dateController.text = '';
@@ -164,10 +174,10 @@ class _DisniHomeState extends State<DisniHome> {
         });
   }
 
-  //delete.....................................................
+  //delete the added data .....................................................
   Future<void> _delete(String hotlineId) async {
     await _addnote.doc(hotlineId).delete().then((value) {
-      Get.snackbar('Success', 'Successfully Deleted');
+      Get.snackbar('Success', 'Note Successfully Deleted');
     });
     Navigator.pop(context);
   }
@@ -197,7 +207,7 @@ class _DisniHomeState extends State<DisniHome> {
           ),
         ),
 
-        //......body....................................................
+        //......body of the component ....................................................
         body: StreamBuilder(
           stream: _addnote.snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
@@ -215,6 +225,12 @@ class _DisniHomeState extends State<DisniHome> {
                       borderRadius: BorderRadius.circular(9.9),
                     ),
                     child: ListTile(
+                      //note icon image adding
+                      leading: const CircleAvatar(
+                        backgroundImage:
+                            NetworkImage('assets/images/noteicon.jpg'),
+                        radius: 25,
+                      ),
                       title: Text(
                         documentSnapshot['topicname'].toString(),
                         style: TextStyle(
@@ -271,7 +287,7 @@ class _DisniHomeState extends State<DisniHome> {
                                 color: Color.fromARGB(255, 224, 68, 68),
                               ),
                               onPressed: () {
-                                // Delete Confirmation Message
+                                // Delete Confirmation Message appears
                                 // set up the buttons
                                 Widget cancelButton = TextButton(
                                   child: Text("Cancel"),
@@ -280,20 +296,21 @@ class _DisniHomeState extends State<DisniHome> {
                                   },
                                 );
                                 Widget continueButton = TextButton(
-                                  child: Text("Ok"),
+                                  child: Text("Yes"),
                                   onPressed: () => _delete(documentSnapshot.id),
                                 );
 
-                                // set up the AlertDialog
+                                // set up the Alert Dialog to alert
                                 AlertDialog alert = AlertDialog(
                                   title: Text("Note Details"),
-                                  content: Text("Are you sure want to delete?"),
+                                  content: Text(
+                                      "Are you sure want to delete your note?"),
                                   actions: [
                                     cancelButton,
                                     continueButton,
                                   ],
                                 );
-                                // show the dialog
+                                // show the dialog here
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -317,7 +334,7 @@ class _DisniHomeState extends State<DisniHome> {
           },
         ),
 
-        // Add new..........................................................................................
+        // Add new data..........................................................................................
         floatingActionButton: FloatingActionButton(
           onPressed: () => _create(),
           child: const Icon(Icons.add),

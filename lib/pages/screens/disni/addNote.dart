@@ -8,6 +8,7 @@ class addNote extends StatefulWidget {
   _addNoteState createState() => _addNoteState();
 }
 
+//......data adding
 class _addNoteState extends State<addNote> {
   @override
   Widget build(BuildContext context) {
